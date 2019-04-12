@@ -1,0 +1,84 @@
+/* Write your custom CSS here */
+/*授权页面样式*/
+.checkmod {
+    margin-bottom: 20px;
+    border: 1px solid #ebebeb;
+}
+.checkmod dt {
+    padding-left: 10px;
+    height: 30px;
+    line-height: 30px;
+    font-weight: bold;
+    border-bottom: 1px solid #ebebeb;
+    background-color: #ECECEC;
+}
+.checkmod dd {
+    padding: 10px;
+    line-height: 30px;
+}
+.checkmod dt.hd {
+    height: 35px;
+    line-height: 35px;
+}
+.checkmod dt.hd .checkbox{
+    height: 20px;
+    line-height: 20px;
+    padding-left:20px;
+    font-weight: 600 ;
+}
+.checkmod dd .checkbox {
+    display:inline-block ;
+    height: 20px;
+    line-height: 20px;
+    margin: 0 10px 0 0;
+    padding-left:20px;
+    font-size:12px;
+}
+.checkmod dd .divsion {
+    margin-right: 20px;
+}
+
+/**#快捷方式**/
+.shortcut{
+    margin-bottom: 15px;
+    text-align: center;
+}
+.shortcut a{
+    text-decoration: none;
+}
+.shortcut i{
+    display: block;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: #f8f8f8;
+}
+.shortcut span{
+    display: block;
+    height: 24px;
+    line-height: 24px;
+    margin-top: 5px;
+}
+
+/**统计管理**/
+.admin-census{
+    padding-left: 15px;
+    margin-bottom: 15px;
+}
+.admin-census a{
+    display: block;
+    padding:5px 10px;
+    background-color: #f8f8f8;
+    text-decoration: none;
+}
+.admin-census h2{
+    font-size: 1em ;
+}
+.admin-census span{
+    display: block;
+    height: 35px;
+    line-height: 35px;
+    font-size: 30px;
+    color: #009688;
+}
+
