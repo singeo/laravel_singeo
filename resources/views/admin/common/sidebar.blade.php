@@ -111,7 +111,7 @@
                         </a>
                     </li>
                     <li >
-                        <a href="/admin/Consolemenu/index">
+                        <a href="/consolenode/index">
                             <p>后台菜单管理</p>
                         </a>
                     </li>

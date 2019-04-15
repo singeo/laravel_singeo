@@ -21,6 +21,16 @@ Route::group([
             Route::get('add','\App\Admin\Controllers\ConsoleUserController@add');
             Route::get('edit/{console_user}','\App\Admin\Controllers\ConsoleUserController@edit');
         }) ;
+        Route::group(['prefix'=>'consolenode'],function ()
+        {
+            Route::get('index','\App\Admin\Controllers\ConsoleNodeController@index');
+            Route::get('create/{console_node?}','\App\Admin\Controllers\ConsoleNodeController@create');
+            Route::post('store','\App\Admin\Controllers\ConsoleNodeController@store');
+            Route::get('edit/{console_node}','\App\Admin\Controllers\ConsoleNodeController@edit');
+            Route::put('save','\App\Admin\Controllers\ConsoleNodeController@save');
+            Route::get('delete/{console_node}','\App\Admin\Controllers\ConsoleNodeController@destroy');
+            Route::delete('delete','\App\Admin\Controllers\ConsoleNodeController@submitDestroy');
+        }) ;
     }) ;
 
     //后台登录路由
@@ -28,4 +38,7 @@ Route::group([
     Route::get('logout','\App\Admin\Controllers\LoginController@logout');
     Route::post('login','\App\Admin\Controllers\LoginController@submit');
     Route::get('verify','\App\Admin\Controllers\LoginController@verify');
+    Route::get('fails',function (){
+        return view('admin.common.fails') ;
+    });
 });

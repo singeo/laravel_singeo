@@ -17,7 +17,7 @@ class CreateConsoleRolesTable extends Migration
             $table->increments('id')->comment('主键');
             $table->string('role_name',30)->unique()->comment('角色名称');
             $table->smallInteger('sort')->unsigned()->comment('排序');
-            $table->tinyInteger('status')->unsigned()->default(1)->comment('角色状态;-1:禁用,1:正常');
+            $table->tinyInteger('status')->default(1)->comment('角色状态;-1:禁用,1:正常');
             $table->timestamps();
         });
     }
