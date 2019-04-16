@@ -32,7 +32,7 @@
                                     <td>{{ $item->created_at }}</td>
                                     <td>
                                         <button type="button" class="btn btn-info" onclick="roleEdit({{ $item->id }});">修改</button>
-                                        <button type="button" class="btn btn-warning" onclick="userRole({{ $item->id }});">授权</button>
+                                        <button type="button" class="btn btn-warning" onclick="roleNode({{ $item->id }});">授权</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -90,11 +90,12 @@
         }) ;
     }
 
-    //删除节点
-    function nodeDel(id){
-        var baseurl = '{{ url('/consolenode/delete') }}' ;
+    //角色授权
+    function roleNode(id){
+        var baseurl = '{{ url('/consolerole/rolenode') }}' ;
         baseurl = baseurl + '/' + id ;
         $.myModal.open({
+            style:{'width':'800px'},
             remote:baseurl,
             backdrop: 'static',
             keyboard: false,

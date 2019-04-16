@@ -20,8 +20,9 @@ class ConsoleRoleController extends Controller
      * 角色列表
      */
     public function index(){
+        $tree = \App\Admin\Models\ConsoleNode::getNodeTree() ;
         $roleList = ConsoleRole::orderBy('sort')
-            ->orderByDesc('created_at')
+            ->orderByDesc('id')
             ->paginate() ;
         return view('admin.console_role.index',compact('roleList')) ;
     }
@@ -105,5 +106,13 @@ class ConsoleRoleController extends Controller
                 ->withErrors($validator)
                 ->with('redirct_url','/consolerole/index') ;
         }
+    }
+
+    /**
+     * 角色授权
+     */
+    public function rolenode(ConsoleRole $consoleRole){
+        $tree = \App\Admin\Models\ConsoleNode::getChannelTree() ;
+        return view('admin.console_role.rolenode',compact('consoleRole','tree')) ;
     }
 }

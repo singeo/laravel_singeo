@@ -1,4 +1,4 @@
-<form class="form-horizontal" name="ruleForm" method="post" action="{{ url('/consolenode/delete') }}">
+<form class="form-horizontal" name="ruleForm" method="post" action="{{ url('/consolenode/submitdelete') }}">
 
     <div class="modal-body">
         确认要删除<span class="f-red">{{ $consoleNode->node_name }}</span>吗?

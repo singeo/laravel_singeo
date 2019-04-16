@@ -5,6 +5,7 @@
  * @author      向军
  */
 namespace App\Admin\librarys;
+
 final class TreeShape
 {
     /**
@@ -35,6 +36,30 @@ final class TreeShape
     }
 
     /**
+     * 返回多层栏目
+     * @param $data 操作的数组
+     * @param int $pid 一级PID的值
+     * @param string $html 栏目名称前缀
+     * @param string $fieldPri 唯一键名，如果是表则是表的主键
+     * @param string $fieldPid 父ID键名
+     * @param int $level 不需要传参数（执行时调用）
+     * @return array
+     */
+    static public function objChannelLevel($data, $pid = 0, $html = "&nbsp;", $fieldPri = 'cid', $fieldPid = 'pid', $level = 1)
+    {
+        $col = collect() ;
+        foreach ($data as $v) {
+            if ($v->$fieldPid == $pid) {
+                $v->_level = $level ;
+                $v->_html = str_repeat($html, $level - 1);
+                $v->_data = self::channelLevel($data, $v->$fieldPri, $html, $fieldPri, $fieldPid, $level + 1) ;
+                $col[] = $v ;
+            }
+        }
+        return $col;
+    }
+
+    /**
      * 获得所有子栏目
      * @param $data 栏目数据
      * @param int $pid 操作的栏目
@@ -47,24 +72,21 @@ final class TreeShape
     static public function channelList($data, $pid = 0, $html = "&nbsp;", $fieldPri = 'cid', $fieldPid = 'pid', $level = 1)
     {
         $data = self::_channelList($data, $pid, $html, $fieldPri, $fieldPid, $level);
-        if (empty($data))
-            return $data;
         foreach ($data as $n => $m) {
-            if ($m['_level'] == 1)
-                continue;
-            $data[$n]['_first'] = false;
-            $data[$n]['_end'] = false;
-            if (!isset($data[$n - 1]) || $data[$n - 1]['_level'] != $m['_level']) {
-                $data[$n]['_first'] = true;
+            if ($m->_level == 1) continue;
+            $data[$n]->_first = false;
+            $data[$n]->_end = false;
+            if (!isset($data[$n - 1]) || $data[$n - 1]->_level != $m->_level) {
+                $data[$n]->_first = true;
             }
-            if (isset($data[$n + 1]) && $data[$n]['_level'] > $data[$n + 1]['_level']) {
-                $data[$n]['_end'] = true;
+            if (isset($data[$n + 1]) && $data[$n]->_level > $data[$n + 1]->_level) {
+                $data[$n]->_end = true;
             }
         }
         //更新key为栏目主键
-        $category=array();
+        $category = collect();
         foreach($data as $d){
-            $category[$d[$fieldPri]]=$d;
+            $category[$d->$fieldPri] = $d;
         }
         return $category;
     }
@@ -72,18 +94,16 @@ final class TreeShape
     //只供channelList方法使用
     static private function _channelList($data, $pid = 0, $html = "&nbsp;", $fieldPri = 'cid', $fieldPid = 'pid', $level = 1)
     {
-        if (empty($data))
-            return array();
-        $arr = array();
+        $arr = collect() ;
         foreach ($data as $v) {
-            $id = $v[$fieldPri];
-            if ($v[$fieldPid] == $pid) {
-                $v['_level'] = $level;
-                $v['_html'] = str_repeat($html, $level - 1);
+            $id = $v->$fieldPri;
+            if ($v->$fieldPid == $pid) {
+                $v->_level = $level;
+                $v->_html = str_repeat($html, $level - 1);
                 $tmp = self::_channelList($data, $id, $html, $fieldPri, $fieldPid, $level + 1);
-                $v['_child'] = empty($tmp) ?  false : true ;
-                array_push($arr, $v);
-                $arr = array_merge($arr, $tmp);
+                $v->_child = empty($tmp) ?  false : true ;
+                $arr->push($v) ;
+                $arr->merge($tmp) ;
             }
         }
         return $arr;
@@ -151,31 +171,29 @@ final class TreeShape
      */
     static public function tree($data, $title, $fieldPri = 'cid', $fieldPid = 'pid')
     {
-        if (!is_array($data) || empty($data))
-            return array();
         $arr = self::channelList($data, 0, '', $fieldPri, $fieldPid);
         foreach ($arr as $k => $v) {
             $str = "";
-            if ($v['_level'] > 2) {
-                for ($i = 1; $i < $v['_level'] - 1; $i++) {
+            if ($v->_level > 2) {
+                for ($i = 1; $i < $v->_level - 1; $i++) {
                     $str .= "&emsp;│";
                 }
             }
-            if ($v['_level'] != 1) {
+            if ($v->_level != 1) {
                 $t = $title ? $v[$title] : "";
-                if (isset($arr[$k + 1]) && $arr[$k + 1]['_level'] >= $arr[$k]['_level']) {
-                    $arr[$k]['_name'] = $str . "&emsp;├─ " . $v['_html'] . $t;
+                if (isset($arr[$k + 1]) && $arr[$k + 1]->_level >= $arr[$k]->_level) {
+                    $arr[$k]->_name = $str . "&emsp;├─ " . $v->_html . $t;
                 } else {
-                    $arr[$k]['_name'] = $str . "&emsp;└─ " . $v['_html'] . $t;
+                    $arr[$k]->_name = $str . "&emsp;└─ " . $v->_html . $t;
                 }
             } else {
-                $arr[$k]['_name'] = $v[$title];
+                $arr[$k]->_name = $v[$title];
             }
         }
         //设置主键为$fieldPri
-        $data = array();
+        $data = collect();
         foreach ($arr as $d) {
-            $data[$d[$fieldPri]] = $d;
+            $data[$d->$fieldPri] = $d;
         }
         return $data;
     }

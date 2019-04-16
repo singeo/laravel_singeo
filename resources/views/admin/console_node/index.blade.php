@@ -24,24 +24,24 @@
                             </thead>
                             <tbody>
                             @foreach($resultList as $item)
-                            <tr data-id="{{ $item['id'] }}" data-pid="{{ $item['pid'] }}" @if($item['_level'] != 1)class="hide"@endif>
-                                <td>{{ str_repeat('&emsp;',$item['_level']) }}
-                                    @if($item['_child']) <span class="fold f-s-14 fa fa-plus-square-o"></span>
+                            <tr data-id="{{ $item->id }}" data-pid="{{ $item->pid }}" @if($item->_level != 1)class="hide" @endif>
+                                <td>{{ str_repeat('&emsp;',$item->_level) }}
+                                    @if($item->_child) <span class="fold f-s-14 fa fa-plus-square-o"></span>
                                     @else <span class="fold f-s-14 fa fa-minus-square-o"></span>
-                                    @endif {{ $item['node_name'] }}
+                                    @endif {{ $item->node_name }}
                                 </td>
-                                <td>{{ $item['node_url'] }}</td>
-                                <td>@if($item['type'] == 1)菜单 @else 操作 @endif</td>
-                                <td>{{ $item['sort'] }}</td>
-                                <td>@if($item['status'] == 1)
+                                <td>{{ $item->node_url }}</td>
+                                <td>@if($item->type == 1)菜单 @else 操作 @endif</td>
+                                <td>{{ $item->sort }}</td>
+                                <td>@if($item->status == 1)
                                     正常
-                                    @elseif($item['status'] == -1)<span class="text-danger">禁用</span>
+                                    @elseif($item->status == -1)<span class="text-danger">禁用</span>
                                     @endif
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-success" onclick="nodeAdd({{ $item['id'] }})">添加子节点</button>
-                                    <button type="button" class="btn btn-info" onclick="nodeEdit({{ $item['id'] }});">修改</button>
-                                    <button type="button" class="btn btn-default" onclick="nodeDel({{ $item['id'] }});">删除</button>
+                                    <button type="button" class="btn btn-success" onclick="nodeAdd({{ $item->id }})">添加子节点</button>
+                                    <button type="button" class="btn btn-info" onclick="nodeEdit({{ $item->id }});">修改</button>
+                                    <button type="button" class="btn btn-default" onclick="nodeDel({{ $item->id }});">删除</button>
                                 </td>
                             </tr>
                             @endforeach

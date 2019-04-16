@@ -21,7 +21,7 @@ class ConsoleUserController
     public function index()
     {
         $userList = ConsoleUser::where('id','<>',1)
-            ->orderBy('created_at','desc')
+            ->orderBy('id','desc')
             ->paginate(10) ;
         return view('admin.console_user.index',compact('userList')) ;
     }

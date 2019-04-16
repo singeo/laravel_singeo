@@ -27,13 +27,32 @@ class ConsoleNode extends Model
     public static function getNodeTree(){
         $where[] = [ 'type','=',1] ;
         $where[] = [ 'status','=',1] ;
-        $nodeList = static::where($where)
+        $list = static::where($where)
             ->select('id','pid','node_name')
             ->orderBy('sort','asc')
-            ->orderBy('created_at','desc')
+            ->orderBy('id','desc')
             ->get() ;
-        $result = \App\Admin\Librarys\TreeShape::tree($nodeList->toArray(),'node_name','id', 'pid') ;
-        return $result ;
+        if(!empty($list->toArray())){
+            dd($list) ;
+            $list = \App\Admin\Librarys\TreeShape::tree($list,'node_name','id', 'pid') ;
+        }
+        return $list ;
+    }
+
+    /**
+     * 获取锤子节点树
+     * @return array
+     */
+    public static function getChannelTree(){
+        $list = \App\Admin\Models\ConsoleNode::where('status',1)
+            ->select('id','pid','node_name')
+            ->orderBy('sort')
+            ->orderByDesc('id')
+            ->get() ;
+        if(!empty($list->toArray())){
+            $list = \App\Admin\Librarys\TreeShape::objChannelLevel($list,0,'','id', 'pid') ;
+        }
+        return $list ;
     }
 
     /**

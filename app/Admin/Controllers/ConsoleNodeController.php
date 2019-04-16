@@ -22,9 +22,10 @@ class ConsoleNodeController extends Controller
     public function index()
     {
         $nodeList = ConsoleNode::orderBy('sort','asc')
-            ->orderBy('created_at','desc')
+            ->orderBy('id','desc')
             ->get() ;
-        $resultList = \App\Admin\Librarys\TreeShape::tree($nodeList->toArray(),'node_name','id', 'pid') ;
+        $resultList = \App\Admin\Librarys\TreeShape::tree($nodeList,'node_name','id', 'pid') ;
+        dd($resultList) ;
         return view('admin.console_node.index',compact('resultList')) ;
     }
 
@@ -51,6 +52,7 @@ class ConsoleNodeController extends Controller
             $nodemodel = new ConsoleNode() ;
             $nodemodel->node_name = $request->input('node_name') ;
             $nodemodel->pid = $request->input('pid') ;
+            $nodemodel->type = $request->input('type') ;
             $nodemodel->node_url = $request->input('node_url') ;
             $nodemodel->node_icon = $request->input('node_icon') ;
             $nodemodel->sort = $request->input('sort') ;

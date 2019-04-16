@@ -30,6 +30,7 @@ Route::group([
             Route::post('store','\App\Admin\Controllers\ConsoleRoleController@store');
             Route::get('edit/{console_role}','\App\Admin\Controllers\ConsoleRoleController@edit');
             Route::put('save','\App\Admin\Controllers\ConsoleRoleController@save');
+            Route::get('rolenode/{console_role}','\App\Admin\Controllers\ConsoleRoleController@rolenode');
         });
         //后台节点管理路由
         Route::group(['prefix'=>'consolenode'],function ()
@@ -40,7 +41,7 @@ Route::group([
             Route::get('edit/{console_node}','\App\Admin\Controllers\ConsoleNodeController@edit');
             Route::put('save','\App\Admin\Controllers\ConsoleNodeController@save');
             Route::get('delete/{console_node}','\App\Admin\Controllers\ConsoleNodeController@destroy');
-            Route::delete('delete','\App\Admin\Controllers\ConsoleNodeController@submitDestroy');
+            Route::delete('submitdelete','\App\Admin\Controllers\ConsoleNodeController@submitDestroy');
         }) ;
     }) ;
 
