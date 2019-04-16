@@ -10,7 +10,7 @@
                 <button type="button" class="btn btn-success m-b-sm" onclick="nodeAdd('');">新增节点</button>
                 <div class="table-responsive">
                     <div class="dataTables_wrapper">
-                        <table id="menusTables" class="display table" style="width: 100%; cellspacing: 0;">
+                        <table id="nodeTables" class="display table" style="width: 100%; cellspacing: 0;">
                             <thead>
                             <tr>
                                 <!--<th>&emsp;折叠</th>-->
@@ -59,7 +59,7 @@
 <script src="{{ asset('/static/admin/plugins/x-editable/bootstrap3-editable/js/bootstrap-editable.js') }}"></script>
 <script type="text/javascript">
 $(function(){
-    $('#menusTables').DataTable({
+    $('#nodeTables').DataTable({
         paging: false,
         info: false,
         ordering:false,
@@ -67,7 +67,7 @@ $(function(){
         language:lang
     });
     //折叠器,显示隐藏
-    $('#menusTables').on('click','.fold',function(){
+    $('#nodeTables').on('click','.fold',function(){
         var theTrObj = $(this).parents('tr') ;
         var foldpid = theTrObj.attr('data-id') ;
         if($(this).hasClass('fa-plus-square-o')){

@@ -115,6 +115,7 @@ return [
     'uploaded'             => ':attribute 上传失败。',
     'url'                  => ':attribute 格式不正确。',
     'uuid'                 => ':attribute 必须是有效的 UUID。',
+    'mobile'                => ':attribute 不是一个合法的手机号。',
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -126,9 +127,9 @@ return [
     |
     */
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
+//        'attribute-name' => [
+//            'rule-name' => 'custom-message',
+//        ],
     ],
     /*
     |--------------------------------------------------------------------------
@@ -142,40 +143,16 @@ return [
     */
     'attributes' => [
         'user_login'            => '登录帐号',
+        'user_nickname'        => '用户昵称',
         'user_pass'             => '登录密码',
         'verify_code'           => '图形验证码',
         'node_name'             => '节点名称',
         'node_url'             => '节点路由地址',
         'node_id'              => '节点ID',
-        'name'                  => '名称',
-        'username'              => '用户名',
-        'email'                 => '邮箱',
-        'first_name'            => '名',
-        'last_name'             => '姓',
-        'password'              => '密码',
-        'password_confirmation' => '确认密码',
-        'city'                  => '城市',
-        'country'               => '国家',
-        'address'               => '地址',
-        'phone'                 => '电话',
-        'mobile'                => '手机',
-        'age'                   => '年龄',
-        'sex'                   => '性别',
-        'gender'                => '性别',
-        'day'                   => '天',
-        'month'                 => '月',
-        'year'                  => '年',
-        'hour'                  => '时',
-        'minute'                => '分',
-        'second'                => '秒',
-        'title'                 => '标题',
-        'content'               => '内容',
-        'description'           => '描述',
-        'excerpt'               => '摘要',
-        'date'                  => '日期',
-        'time'                  => '时间',
-        'available'             => '可用的',
-        'size'                  => '大小',
+        'user_id'              => '用户ID',
+        'role_id'              => '角色ID' ,
+        'role_name'             => '角色名称',
+        'mobile'                => '联系手机',
     ],
 
 ];

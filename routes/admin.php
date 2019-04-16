@@ -18,9 +18,20 @@ Route::group([
         Route::group(['prefix'=>'consoleuser'],function ()
         {
             Route::get('index','\App\Admin\Controllers\ConsoleUserController@index');
-            Route::get('add','\App\Admin\Controllers\ConsoleUserController@add');
+            Route::get('create','\App\Admin\Controllers\ConsoleUserController@create');
+            Route::post('store','\App\Admin\Controllers\ConsoleUserController@store');
             Route::get('edit/{console_user}','\App\Admin\Controllers\ConsoleUserController@edit');
+            Route::put('save','\App\Admin\Controllers\ConsoleUserController@save');
         }) ;
+        //后台角色管理路由
+        Route::group(['prefix'=>'consolerole'],function (){
+            Route::get('index','\App\Admin\Controllers\ConsoleRoleController@index');
+            Route::get('create','\App\Admin\Controllers\ConsoleRoleController@create');
+            Route::post('store','\App\Admin\Controllers\ConsoleRoleController@store');
+            Route::get('edit/{console_role}','\App\Admin\Controllers\ConsoleRoleController@edit');
+            Route::put('save','\App\Admin\Controllers\ConsoleRoleController@save');
+        });
+        //后台节点管理路由
         Route::group(['prefix'=>'consolenode'],function ()
         {
             Route::get('index','\App\Admin\Controllers\ConsoleNodeController@index');

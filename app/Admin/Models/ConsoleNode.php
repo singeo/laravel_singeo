@@ -15,7 +15,6 @@ class ConsoleNode extends Model
 {
     /**
      * 不能被批量赋值的属性
-     *
      * @var array
      */
     protected $guarded = [] ;

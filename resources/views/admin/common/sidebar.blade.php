@@ -116,12 +116,12 @@
                         </a>
                     </li>
                     <li >
-                        <a href="/admin/Consolerole/index">
+                        <a href="/consolerole/index">
                             <p>角色管理</p>
                         </a>
                     </li>
                     <li >
-                        <a href="/admin/Consoleuser/index">
+                        <a href="/consoleuser/index">
                             <p>管理员管理</p>
                         </a>
                     </li>

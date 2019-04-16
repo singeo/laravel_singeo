@@ -86,7 +86,7 @@ class ConsoleNodeController extends Controller
         $validator = Validator::make($request->all(),[
             'node_name'=>'required|max:20|min:2',
             'node_url'=>'required',
-            'node_id'=>'required'
+            'node_id'=>'required|integer'
         ]) ;
 
         if($validator->passes()){
@@ -125,7 +125,7 @@ class ConsoleNodeController extends Controller
      */
     public function submitDestroy(Request $request){
         $validator = Validator::make($request->all(),[
-            'node_id'=>'required'
+            'node_id'=>'required|integer'
         ]) ;
         if($validator->passes()){
             $node_id = $request->input('node_id') ;
