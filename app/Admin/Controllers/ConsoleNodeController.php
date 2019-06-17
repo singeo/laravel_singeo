@@ -25,7 +25,6 @@ class ConsoleNodeController extends Controller
             ->orderBy('id','desc')
             ->get() ;
         $resultList = \App\Admin\Librarys\TreeShape::tree($nodeList,'node_name','id', 'pid') ;
-        dd($resultList) ;
         return view('admin.console_node.index',compact('resultList')) ;
     }
 

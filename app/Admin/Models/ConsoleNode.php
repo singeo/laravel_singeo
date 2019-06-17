@@ -32,8 +32,7 @@ class ConsoleNode extends Model
             ->orderBy('sort','asc')
             ->orderBy('id','desc')
             ->get() ;
-        if(!empty($list->toArray())){
-            dd($list) ;
+        if($list->isNotEmpty()){
             $list = \App\Admin\Librarys\TreeShape::tree($list,'node_name','id', 'pid') ;
         }
         return $list ;
@@ -49,7 +48,7 @@ class ConsoleNode extends Model
             ->orderBy('sort')
             ->orderByDesc('id')
             ->get() ;
-        if(!empty($list->toArray())){
+        if($list->isNotEmpty()){
             $list = \App\Admin\Librarys\TreeShape::objChannelLevel($list,0,'','id', 'pid') ;
         }
         return $list ;

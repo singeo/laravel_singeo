@@ -52,7 +52,7 @@ class ConsoleUserController
             $users->user_nickname = $request->input('user_nickname') ;
             $users->user_email = $request->input('email') ;
             $users->mobile = $request->input('mobile') ;
-            $users->user_pass = bcrypt($request->input('user_pass')) ;
+            $users->user_pass = $request->input('user_pass') ;
             $users->user_status = $request->input('user_status') ;
             $result = $users->save() ;
             if(!$result){
@@ -105,7 +105,7 @@ class ConsoleUserController
             $users->mobile = $request->input('mobile') ;
             $password = $request->input('user_pass') ;
             if(!empty($password)){
-                $users->user_pass = bcrypt($password) ;
+                $users->user_pass = $password ;
             }
             $users->user_status = $request->input('user_status') ;
             $result = $users->save() ;
@@ -121,5 +121,30 @@ class ConsoleUserController
                 ->withErrors($validator)
                 ->with('redirct_url','/consoleuser/index') ;
         }
+    }
+
+    /**
+     * 分配用户角色
+     */
+    public function userrole(ConsoleUser $consoleUser){
+        //获取所有角色列表
+        $roles = \App\Admin\Models\ConsoleRole::all() ;
+        //获取当前用户的角色
+        $curRoles = $consoleUser->userRole ;
+        return view('admin.console_user.userrole',compact('consoleUser','roles','curRoles')) ;
+    }
+
+    /**
+     * 保存用户角色
+     * @param Request $request
+     * @param ConsoleUser $consoleUser
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function saveRoles(Request $request, ConsoleUser $consoleUser)
+    {
+        $roles = $request->get('role_id') ;
+        $consoleUser->grantRoles()->sync($roles) ;
+        return redirect('success')
+            ->with(['message'=>'用户授权角色成功','redirct_url'=>'/consoleuser/index']) ;
     }
 }

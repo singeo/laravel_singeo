@@ -95,9 +95,9 @@
         }) ;
     }
 
-    //删除节点
-    function nodeDel(id){
-        var baseurl = '{{ url('/consolenode/delete') }}' ;
+    //用户授权
+    function userRole(id){
+        var baseurl = '{{ url('/consoleuser/userrole') }}' ;
         baseurl = baseurl + '/' + id ;
         $.myModal.open({
             remote:baseurl,

@@ -112,7 +112,19 @@ class ConsoleRoleController extends Controller
      * 角色授权
      */
     public function rolenode(ConsoleRole $consoleRole){
-        $tree = \App\Admin\Models\ConsoleNode::getChannelTree() ;
-        return view('admin.console_role.rolenode',compact('consoleRole','tree')) ;
+        $nodeList = \App\Admin\Models\ConsoleNode::getChannelTree() ;
+        $myNodes = $consoleRole->rolerules ;
+        return view('admin.console_role.rolenode',compact('consoleRole','nodeList','myNodes')) ;
+    }
+
+    /**
+     * 保存角色权限
+     */
+    public function roleAccess(Request $request,ConsoleRole $consoleRole)
+    {
+        $rules = $request->get('rules') ;
+        $consoleRole->grantRules()->sync($rules) ;
+        return redirect('success')
+            ->with(['message'=>'授权成功','redirct_url'=>'/consolerole/index']) ;
     }
 }

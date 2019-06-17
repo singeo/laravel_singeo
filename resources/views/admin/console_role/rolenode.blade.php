@@ -1,26 +1,25 @@
-<form class="form-horizontal" name="admin_group_form" action="{{ url('/consolerole/submit') }}" method="post">
+<form class="form-horizontal" name="admin_group_form" action="{{ url('/consolerole/role_access',$consoleRole->id) }}" method="post">
     <div class="modal-body" style="width:800px;height:550px;overflow-x: hidden;overflow-y:auto; ">
-        <input type="hidden" name="role_id" id="role_id" value="{{ $consoleRole->id }}">
-        @foreach($tree as $node)
+        @foreach($nodeList as $node)
         <dl class="checkmod">
             <dt class="hd">
-                <label class="checkbox"><input class="auth_rules rules_all" type="checkbox" name="rules[]" value="{{ $node->id }}">{{ $node->node_name }}</label>
+                <label class="checkbox"><input class="auth_rules rules_all" type="checkbox" name="rules[]" value="{{ $node->id }}" @if($myNodes->contains($node)) checked @endif>{{ $node->node_name }}</label>
             </dt>
-            @if(!empty($node->_data))
+            @if($node->_data->isNotEmpty())
             @foreach($node->_data as $node_son)
             <dd class="bd">
                 <div class="rule_check">
                     <div>
                         <label class="checkbox">
-                            <input class="auth_rules rules_row" type="checkbox" name="rules[]" value="{{ $node_son->id }}">{{ $node_son->node_name }}
+                            <input class="auth_rules rules_row" type="checkbox" name="rules[]" value="{{ $node_son->id }}" @if($myNodes->contains($node_son)) checked @endif>{{ $node_son->node_name }}
                         </label>
                     </div>
-                    @if(!empty($node_son->_data))
+                    @if($node_son->_data->isNotEmpty())
                     <span class="divsion">&nbsp;</span>
                     <span class="child_row">
                         @foreach($node_son->_data as $node_act)
                             <label class="checkbox">
-                                <input class="auth_rules" type="checkbox" name="rules[]" value="{{ $node_act->id }}">{{ $node_act->node_name }}
+                                <input class="auth_rules" type="checkbox" name="rules[]" value="{{ $node_act->id }}" @if($myNodes->contains($node_act)) checked @endif>{{ $node_act->node_name }}
                             </label>
                         @endforeach
                     </span>
@@ -36,6 +35,7 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
         <button type="submit" id="add-row" class="btn btn-success">确定授权</button>
     </div>
+    {{ csrf_field() }}
 </form>
 
 <script type="text/javascript">

@@ -52,7 +52,7 @@ final class TreeShape
             if ($v->$fieldPid == $pid) {
                 $v->_level = $level ;
                 $v->_html = str_repeat($html, $level - 1);
-                $v->_data = self::channelLevel($data, $v->$fieldPri, $html, $fieldPri, $fieldPid, $level + 1) ;
+                $v->_data = self::objChannelLevel($data, $v->$fieldPri, $html, $fieldPri, $fieldPid, $level + 1) ;
                 $col[] = $v ;
             }
         }
@@ -101,9 +101,10 @@ final class TreeShape
                 $v->_level = $level;
                 $v->_html = str_repeat($html, $level - 1);
                 $tmp = self::_channelList($data, $id, $html, $fieldPri, $fieldPid, $level + 1);
-                $v->_child = empty($tmp) ?  false : true ;
+                $temArr = $tmp->toArray() ;
+                $v->_child = empty($temArr) ?  false : true ;
                 $arr->push($v) ;
-                $arr->merge($tmp) ;
+                $arr = $arr->merge($tmp) ;
             }
         }
         return $arr;

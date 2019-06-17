@@ -101,6 +101,7 @@
             keyboard: false,
             show:true,
             success:function(o){
+                initCheck();
             }
         }) ;
     }

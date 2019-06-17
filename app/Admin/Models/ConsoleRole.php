@@ -19,4 +19,22 @@ class ConsoleRole extends Model
      */
     protected $guarded = [] ;
 
+    /**
+     * 获取当前用户的权限
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function rolerules(){
+        return $this->belongsToMany( ConsoleNode::class,'console_roles_nodes', 'role_id','node_id')
+            ->withPivot('role_id','node_id');
+    }
+    /**
+     * 角色授权
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function grantRules()
+    {
+        return $this->rolerules() ;
+    }
+
+
 }
